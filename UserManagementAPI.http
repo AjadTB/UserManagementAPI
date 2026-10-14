@@ -1,0 +1,42 @@
+@host = http://localhost:60188
+@token = secret-token-123
+
+### Get all users
+GET {{host}}/api/users
+Authorization: Bearer {{token}}
+
+### Create a user
+POST {{host}}/api/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "name": "Aisha Rahman", "email": "aisha@techhive.com", "age": 28, "department": "HR" }
+
+### Create with invalid data (expect 400)
+POST {{host}}/api/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "name": "", "email": "not-an-email", "age": 5, "department": "IT" }
+
+### Get one user
+GET {{host}}/api/users/1
+Authorization: Bearer {{token}}
+
+### Update a user
+PUT {{host}}/api/users/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "name": "Aisha R.", "email": "aisha@techhive.com", "age": 29, "department": "IT" }
+
+### Delete a user
+DELETE {{host}}/api/users/1
+Authorization: Bearer {{token}}
+
+### No token (expect 401)
+GET {{host}}/api/users
+
+### Trigger the error-handling middleware (expect 500 JSON)
+GET {{host}}/api/users/error-test
+Authorization: Bearer {{token}}
